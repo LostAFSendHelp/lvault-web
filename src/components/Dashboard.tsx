@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getVaults, wait } from "../functions/vault-functions";
+import { getVaults } from "../functions/vault-functions";
+import { useAuth } from "./AuthProvider";
 
 export const Dashboard = () => {
-  const pages = ["vault 1", "vault 2", "vault 3"];
+  const auth = useAuth();
+  if (!auth.user) return <h1>Error: 401 unauthorized</h1>
 
   const query = useQuery({
     queryKey: ["vaults"],
